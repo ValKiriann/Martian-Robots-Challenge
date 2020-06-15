@@ -13,9 +13,10 @@ exports.success = function (req, res, message, status) {
     res.status(response.statusCode).send(response);
 }
 
-exports.errors = function (req, res, errors) {
+exports.errors = function (res, errors, statusCode = 500) {
     let response = new Response(0);
     response.data = {};
+    response.statusCode = statusCode;
 
     if (Array.isArray(errors)) {
         for (let i = 0; i < errors.length; i++) {
@@ -23,12 +24,8 @@ exports.errors = function (req, res, errors) {
                 errorCode: errors[i].errorCode,
                 errorData: errors[i].errorData
             });
-            if (errors[i].statusCode > response.statusCode) {
-                response.statusCode = errors[ index ].statusCode;
-            }
         }
     }else {
-        response.statusCode = errors.statusCode;
         response.errors = [
             {
                 errorCode: errors.errorCode,
