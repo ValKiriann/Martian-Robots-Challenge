@@ -1,3 +1,27 @@
+const cardinals = ["N", "E", "S", "W"]
+
+exports.verifyRobotsAndDirections = (robots, terrain) => {
+    if(!robots || robots.length == 0) {
+        throw {statusCode:400, errorCode: "Verify Params Error", errorData: "Please add at least a robot to start an expedition"}
+    }
+    let invalidRobots = []
+    for(let i = 0; i < robots.length; i++){
+        let robot = robots[i]
+        let startingPointIsSet = !!robot.startingPoint && robot.startingPoint.x && !!robot.startingPoint.y && !!robot.startingPoint.orientation
+        let startingPointIsValid = !isNaN(robot.startingPoint.x) && !isNaN(robot.startingPoint.y);
+        let robotIsInsideTerrain = robot.startingPoint.x <= terrain.x && robot.startingPoint.y <= terrain.y;
+        let orientationIsValid = cardinals.includes(robot.startingPoint.orientation);
+        let directionsAreValid = !!robot.directions && robot.directions.length <= 100;
+        if(!startingPointIsSet || !startingPointIsValid || !robotIsInsideTerrain || !orientationIsValid || !directionsAreValid) {
+            invalidRobots.push({statusCode:400, errorCode: "Verify Params Error", errorData: `Robot number ${i +1} is invalid`})
+        }
+    }
+    if(invalidRobots.length > 0) {
+        throw invalidRobots;
+    }
+    return true;
+}
+
 exports.createRobot = class Robot {
     constructor(x, y, orientation) {
         this.x = x;
@@ -13,7 +37,6 @@ exports.executeDirections = (robot, directions, terrain) => {
             break;
         }
         let direction = directions[i]
-        console.log(direction)
         if(direction == "F") {
             robot = moveRobot(robot, terrain)
         }else {
@@ -24,7 +47,6 @@ exports.executeDirections = (robot, directions, terrain) => {
 }
 
 function turnRobot(robot, instruction) {
-    let cardinals = ["N", "E", "S", "W"]
     let newOrientation = cardinals.findIndex(cardinal => cardinal == robot.orientation)
     if (instruction === 'L') { 
         newOrientation = (newOrientation + 4 - 1) % 4;

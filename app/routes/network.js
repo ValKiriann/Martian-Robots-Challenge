@@ -26,8 +26,7 @@ router.post('/expeditions', function(req,res){
     let { terrain, robots } = req.body;
     try {
         expeditionService.verifyTerrain(terrain);
-        //TODO: verify robots
-        //TODO: check directions lengths no more than 100
+        robotsService.verifyRobotsAndDirections(robots, terrain);
         let robotsStatus = []
         robots.forEach(robot => {
             let directions = robot.directions
