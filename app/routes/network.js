@@ -4,7 +4,7 @@ const responseUtils = require('../utils/response.utils');
 const {name} = require("../package.json");
 const {port} = require('../config.json');
 const expeditionService = require("../services/expedition.service");
-const robotsService = require("../services/robots.service");
+const robotsService = require("../services/robot.service");
 
 router.get('/', function(req,res){ 
     responseUtils.success(req,res,`Module ${name} is up at ${port}`,200);
