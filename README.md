@@ -21,7 +21,67 @@ npm i
 node server.js
 ```
 
-Send the requests to http://localhost:3000
+Send the requests to http://localhost:3000/expeditions
+
+The input must be JSON, example format with 3 robots:
+```JSON
+{
+	"terrain": {
+		"x": 5,
+		"y": 3
+	},
+	"robots": [{
+		"startingPoint": {
+			"x": 1,
+			"y": 1,
+			"orientation": "E"
+		},
+		"directions": ["R","F","R","F","R","F","R","F"]
+	},{
+		"startingPoint": {
+			"x": 3,
+			"y": 2,
+			"orientation": "N"
+		},
+		"directions": ["F","R","R","F","L","L","F","F","R","R","F","L","L"]
+	},{
+		"startingPoint": {
+			"x": 0,
+			"y": 3,
+			"orientation": "W"
+		},
+		"directions": ["L","L","F","F","F","L","F","L","F","L"]
+	}]
+}
+```
+
+If all the parameters are correct the API should response with a 200:
+```JSON
+{
+  "statusCode": 200,
+  "errors": [],
+  "data": [
+    {
+      "x": 1,
+      "y": 1,
+      "orientation": "E",
+      "isLost": false
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "orientation": "N",
+      "isLost": true
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "orientation": "N",
+      "isLost": true
+    }
+  ]
+}
+```
 
 ### Launching the tests
 
