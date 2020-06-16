@@ -7,7 +7,8 @@ exports.verifyRobotsAndDirections = (robots, terrain) => {
     let invalidRobots = []
     for(let i = 0; i < robots.length; i++){
         let robot = robots[i]
-        let startingPointIsSet = !!robot.startingPoint && robot.startingPoint.x && !!robot.startingPoint.y && !!robot.startingPoint.orientation
+        let startingPointIsSet = !!robot.startingPoint && (!!robot.startingPoint.x || Number(robot.startingPoint.x) == 0)  
+            && (!!robot.startingPoint.y || Number(robot.startingPoint.y) == 0)  && !!robot.startingPoint.orientation;
         let startingPointIsValid = !isNaN(robot.startingPoint.x) && !isNaN(robot.startingPoint.y);
         let robotIsInsideTerrain = robot.startingPoint.x <= terrain.x && robot.startingPoint.y <= terrain.y;
         let orientationIsValid = cardinals.includes(robot.startingPoint.orientation);
