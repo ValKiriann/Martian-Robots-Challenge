@@ -11,7 +11,7 @@ exports.verifyRobotsAndDirections = (robots, terrain) => {
         let startingPointIsValid = !isNaN(robot.startingPoint.x) && !isNaN(robot.startingPoint.y);
         let robotIsInsideTerrain = robot.startingPoint.x <= terrain.x && robot.startingPoint.y <= terrain.y;
         let orientationIsValid = cardinals.includes(robot.startingPoint.orientation);
-        let directionsAreValid = !!robot.directions && robot.directions.length <= 100;
+        let directionsAreValid = !!robot.directions && robot.directions.length <= 100 && checkDirectionsParameters(robot.directions);
         if(!startingPointIsSet || !startingPointIsValid || !robotIsInsideTerrain || !orientationIsValid || !directionsAreValid) {
             invalidRobots.push({statusCode:400, errorCode: "Verify Params Error", errorData: `Robot number ${i +1} is invalid`})
         }
@@ -20,6 +20,11 @@ exports.verifyRobotsAndDirections = (robots, terrain) => {
         throw invalidRobots;
     }
     return true;
+}
+
+function checkDirectionsParameters(directions) {
+    const validDirections = ["F", "L", "R"]
+    return directions.every(direction => validDirections.includes(direction))
 }
 
 exports.createRobot = class Robot {

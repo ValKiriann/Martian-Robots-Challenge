@@ -26,8 +26,6 @@ describe('Verify Params: Verify Terrain is valid', () => {
     });
 
     test('Valid terrain', () => {
-        return expect(() => {
-            return expeditionService.verifyTerrain({x:3, y:5});
-        }).toBeTruthy();
+        return expect(expeditionService.verifyTerrain({x:3, y:5})).toBeTruthy();
     });
 });

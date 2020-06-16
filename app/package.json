@@ -4,7 +4,7 @@
   "description": "Just a quick API with Express and NodeJs to solve the martian robots Kata",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
