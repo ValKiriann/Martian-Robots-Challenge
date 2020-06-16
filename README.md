@@ -3,7 +3,7 @@
 # Martian-Robots-Challenge
 Just a quick API with Express and NodeJs to solve the Martian Robots Kata
 
-You can check the problem at the end of the [file](#The problem)
+You can check the problem at the end of the [file](#description)
 
 ## Installation
 
@@ -31,7 +31,7 @@ npm run test
 ```
 
 ## The Problem
-<a name="The problem"></a>
+<a name="description"></a>
 The surface of Mars can be modelled by a rectangular grid around which robots are able to move according to instructions provided from Earth. You are to write a program that determines each sequence of robot positions and reports the final position of the robot.
 
 A robot position consists of a grid coordinate (a pair of integers: x-coordinate followed by y-coordinate) and an orientation (N, S, E, W for north, south, east, and west). A robot instruction is a string of the letters "L", "R", and "F" which represent, respectively, the instructions:
