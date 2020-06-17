@@ -4,3 +4,11 @@ exports.verifyTerrain = (terrain) => {
     }
     return true;
 }
+
+exports.Terrain = class Terrain {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.robotScents= []
+    }
+}

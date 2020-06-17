@@ -28,7 +28,7 @@ function checkDirectionsParameters(directions) {
     return directions.every(direction => validDirections.includes(direction))
 }
 
-exports.createRobot = class Robot {
+exports.Robot = class Robot {
     constructor(x, y, orientation) {
         this.x = x;
         this.y = y;
@@ -63,14 +63,30 @@ function turnRobot(robot, instruction) {
     return robot;
 }
 
+function checkRobotScent(robot, terrain){
+    let scent = false;
+    for(let i=0; i < terrain.robotScents.length; i++) {
+        if(terrain.robotScents[i][0] == robot.x && terrain.robotScents[i][1] == robot.y) {
+            scent = true;
+            break;
+        }
+    }
+    return scent;
+}
+
 function moveRobot(robot, terrain) {
+    robotScents = terrain.robotScents 
     switch(robot.orientation) {
         case "N":
             if(robot.y == terrain.y) {
-                robot.isLost = true;
+                if(checkRobotScent(robot, terrain)){
+                    return robot;
+                }else {
+                    robot.isLost = true;
+                    terrain.robotScents.push([robot.x,robot.y]);
+                }
             } else {
                 robot.y ++;
-                
             }
             return robot;
         case "S":
@@ -82,7 +98,12 @@ function moveRobot(robot, terrain) {
             return robot;
         case "E":
             if(robot.x == terrain.x) {
-                robot.isLost = true
+                if(checkRobotScent(robot, terrain)){
+                    return robot;
+                }else {
+                    robot.isLost = true;
+                    terrain.robotScents.push([robot.x,robot.y]);
+                }
             } else {
                 robot.x ++;
             }
