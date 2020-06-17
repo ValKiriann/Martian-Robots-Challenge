@@ -74,10 +74,10 @@ If all the parameters are correct the API should response with a 200:
       "isLost": true
     },
     {
-      "x": 3,
+      "x": 2,
       "y": 3,
-      "orientation": "N",
-      "isLost": true
+      "orientation": "S",
+      "isLost": false
     }
   ]
 }
