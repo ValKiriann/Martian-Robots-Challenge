@@ -1,4 +1,5 @@
 const robotsService = require('../../services/robot.service');
+const expeditionService = require('../../services/expedition.service');
 
 const validRobot = {
     "startingPoint": {
@@ -36,15 +37,7 @@ const invalidRobot2 = {
     "directions": ["R","F","R","F","R","F","R","F"]
 }
 
-const terrain = {
-    x: 5,
-    y: 3
-}
-
-const insideDirections = ["R","F","R","F","R","F","R","F"];
-const lostDirections = ["R","F","R","F","R","F","R","F", "F", "F", "F", "F", "F"];
-const robot = new robotsService.createRobot(1, 1, "E");
-console.log(robot)
+const terrain = new expeditionService.Terrain(5,3);
 
 describe('Verify Robots: Verify robots and directions are valid', () => {
     test('The service recieves an undefined array of robots and the terrain to check them', () => {
@@ -90,9 +83,18 @@ describe('Verify Robots: Verify robots and directions are valid', () => {
 
 describe('Execute directions:', () => {
     test('Robot is not lost', () => {
-        return expect(robotsService.executeDirections(robot, insideDirections, terrain)).toEqual({"isLost": false, "orientation": "E", "x": 1, "y": 1});
+        const robot = new robotsService.Robot(1, 1, "E");
+        const directions = ["R","F","R","F","R","F","R","F"];
+        return expect(robotsService.executeDirections(robot, directions, terrain)).toEqual({"isLost": false, "orientation": "E", "x": 1, "y": 1});
     });
     test('Robot is lost', () => {
-        return expect(robotsService.executeDirections(robot, lostDirections, terrain)).toEqual({"isLost": true, "orientation": "E", "x": 5, "y": 1});
+        const robot = new robotsService.Robot(3, 2, "N");
+        directions= ["F","R","R","F","L","L","F","F","R","R","F","L","L"];
+        return expect(robotsService.executeDirections(robot, directions, terrain)).toEqual({"isLost": true, "orientation": "N", "x": 3, "y": 3});
+    });
+    test('Lost robot help next robots with its scent to stay in the grid', () => {
+        const robot = new robotsService.Robot(0, 3, "W");
+        directions = ["L","L","F","F","F","L","F","L","F","L"];
+        return expect(robotsService.executeDirections(robot, directions, terrain)).toEqual({"isLost": false, "orientation": "S", "x": 2, "y": 3});
     });
 });
