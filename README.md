@@ -14,7 +14,7 @@ docker run -p 3000:3000 -d anneav/martian-robots-challenge
 ```
 
 
-Alternatively, the app can also be launced locally by downloading the repository, installing the dependencies and then running the server. From the app folder:
+Alternatively, the app can also be launched locally by downloading the repository, installing the dependencies and then running the server. From the app folder:
 
 ```
 npm i
