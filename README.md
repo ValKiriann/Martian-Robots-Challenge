@@ -1,4 +1,4 @@
-<img height=100px src ="https://image.flaticon.com/icons/png/512/838/838520.png" alt="robot-logo"/>
+<img height=100px src ="https://cdn-icons-png.flaticon.com/512/2432/2432846.png" alt="robot-logo"/>
 
 # Martian-Robots-Challenge
 Just a quick API with Express and NodeJs to solve the Martian Robots Kata
